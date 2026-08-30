@@ -87,8 +87,16 @@ class Theme:
     BTN_NEUTRAL   = "#22233a"
     BTN_NEUTRAL_H = "#2c2d48"
 
-FONT_FAMILY_UI   = "Segoe UI"
-FONT_FAMILY_MONO = "Cascadia Code"
+if sys.platform == "win32":
+    FONT_FAMILY_UI = "Segoe UI"
+    FONT_FAMILY_MONO = "Cascadia Code"
+elif sys.platform == "darwin":
+    FONT_FAMILY_UI = "Helvetica"
+    FONT_FAMILY_MONO = "Menlo"
+else:  # Linux
+    FONT_FAMILY_UI = "Ubuntu"
+    FONT_FAMILY_MONO = "Monospace"
+    
 FONT_FAMILY_FALLBACK_MONO = "Consolas"
 
 ctk.set_appearance_mode("dark")
@@ -120,7 +128,12 @@ class DeepSeekCLI(ctk.CTk):
         super().__init__()
 
         try:
-            self.iconbitmap("icon.ico")
+            if sys.platform == "win32":
+                self.iconbitmap("icon.ico")
+            elif sys.platform == "darwin":  # macOS
+                pass
+            else:
+                pass
         except Exception:
             pass
 
@@ -929,8 +942,12 @@ class DeepSeekCLI(ctk.CTk):
             return
         self.write(f"▶️ Running {filename} ...", "accent")
         try:
+            if sys.platform == "win32":
+                system = [sys.executable, path]
+            else:
+                system = ["python3", path]  # یا ["python", path]
             result = subprocess.run(
-                [sys.executable, path],
+                system,
                 capture_output=True, text=True, timeout=15, cwd=self.current_dir
             )
             if result.stdout:
