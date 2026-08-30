@@ -163,9 +163,6 @@ ds-free-agent/
 ### خطای `TclError` در سایدبار
 این خطا در نسخه پایدار رفع شده است. اگر همچنان مشاهده کردید، لطفاً Issue ثبت کنید.
 
-### خطای `ModuleNotFoundError: No module named 'DeepSeek'`
-ماژول `DeepSeek.api` بخشی از این پروژه نیست. باید آن را از منبع رسمی DeepSeek دریافت کرده و در مسیر مناسب قرار دهید.
-
 ### خطا در نمایش فارسی/عربی
 کتابخانه‌های `arabic_reshaper` و `python-bidi` را نصب کنید:
 ```bash
