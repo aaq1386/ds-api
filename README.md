@@ -37,7 +37,7 @@
 
 ### پیش‌نیازها
 - Python 3.8 یا بالاتر
-- توکن معتبر DeepSeek (دریافت از [platform.deepseek.com](https://platform.deepseek.com))
+- توکن معتبر DeepSeek /image get_token.png
 
 ### مراحل نصب
 
