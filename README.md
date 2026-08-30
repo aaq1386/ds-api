@@ -32,7 +32,7 @@
   
 ![گرفتن توکن از DeepSeek](get_token.png)
   
-*برای دریافت توکن، به [platform.deepseek.com](https://chat.deepseek.com/) بروید و توکن خود را بسازید.*
+*برای دریافت توکن، به [chat.deepseek.com](https://chat.deepseek.com/) بروید و توکن خود را بسازید.*
 
 </div>
 ### مراحل نصب
