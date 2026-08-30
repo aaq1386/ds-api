@@ -39,8 +39,8 @@
 
 1. **کلون کردن مخزن:**
 ```bash
-git clone https://github.com/yourusername/ds-free-agent.git
-cd ds-free-agent
+git clone https://github.com/RashMD-Studio/DS-free-agent.git
+cd DS-free-agent
 ```
 
 2. **نصب وابستگی‌ها:**
