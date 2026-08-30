@@ -24,13 +24,17 @@
 
 ---
 
-## 🚀 نصب و راه‌اندازی
-
 ### پیش‌نیازها
 - Python 3.8 یا بالاتر
 - توکن معتبر DeepSeek
-![گرفتن توکن](get_token.png)
 
+<div align="center">
+  
+![گرفتن توکن از DeepSeek](get_token.png)
+  
+*برای دریافت توکن، به [platform.deepseek.com](https://platform.deepseek.com) بروید و توکن خود را بسازید.*
+
+</div>
 ### مراحل نصب
 
 1. **کلون کردن مخزن:**
