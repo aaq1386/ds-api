@@ -28,7 +28,8 @@
 
 ### پیش‌نیازها
 - Python 3.8 یا بالاتر
-- توکن معتبر DeepSeek /image get_token.png
+- توکن معتبر DeepSeek
+- /image get_token.png
 
 ### مراحل نصب
 
