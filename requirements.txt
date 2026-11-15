@@ -1,8 +1,21 @@
-curl-cffi==0.8.1b9
-wasmtime
-numpy
-nodriver
-drissionpage
-customtkinter
-arabic_reshaper
-python-bidi
+# Core
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.8.0
+pydantic-settings>=2.4.0
+sqlalchemy>=2.0.30
+jinja2>=3.1.4
+
+# DeepSeek provider
+httpx>=0.27.0
+requests>=2.32.0
+wasmtime>=29.0.0
+numpy>=1.26.0
+
+# Cloudflare bypass
+DrissionPage>=4.3.0
+pyvirtualdisplay>=3.0
+
+# Misc
+python-dotenv>=1.0.0
+
