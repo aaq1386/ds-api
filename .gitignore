@@ -6,3 +6,4 @@ config/cookies.json
 data/*.db
 workspace/
 *.zip
+*.zip
