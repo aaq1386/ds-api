@@ -2,7 +2,7 @@
 
 <div align="center">
 
-# DS Agent Studio
+# DS FastAPI Wrapper
 
 **یک بک‌اند محلی مبتنی بر FastAPI که نشست چت وب DeepSeek شما را به‌صورت API از نوع REST و Server-Sent-Events در اختیار می‌گذارد و مکالمه‌ها را به‌صورت پایدار در SQLite ذخیره می‌کند.**
 
@@ -45,11 +45,11 @@
 
 ### این پروژه چیست؟
 
-DS Agent Studio یک سرویس پایتونی (FastAPI + SQLAlchemy + SQLite) است که میان ابزارهای خودِ شما و **چت وب DeepSeek** (`https://chat.deepseek.com`) قرار می‌گیرد. این سرویس از API رسمی و پولی DeepSeek استفاده نمی‌کند؛ در عوض با همان نقاط انتهایی خصوصی HTTP که وب‌سایت DeepSeek استفاده می‌کند صحبت می‌کند و با یک توکن نشست و کوکی‌هایی که **خودتان** فراهم می‌کنید احراز هویت می‌شود.
+DS FastAPI Wrapper یک سرویس پایتونی (FastAPI + SQLAlchemy + SQLite) است که میان ابزارهای خودِ شما و **چت وب DeepSeek** (`https://chat.deepseek.com`) قرار می‌گیرد. این سرویس از API رسمی و پولی DeepSeek استفاده نمی‌کند؛ در عوض با همان نقاط انتهایی خصوصی HTTP که وب‌سایت DeepSeek استفاده می‌کند صحبت می‌کند و با یک توکن نشست و کوکی‌هایی که **خودتان** فراهم می‌کنید احراز هویت می‌شود.
 
 ### چه مشکلی را حل می‌کند؟
 
-این نقاط انتهایی مستند نیستند، برای هر تکمیل پاسخ (completion) به حل یک چالش اثبات کار (proof-of-work) نیاز دارند، قالب استریم اختصاصی دارند و زمینهٔ مکالمه را با شناسهٔ نشست و شناسهٔ پیام والد در سمت سرور نگه می‌دارند. DS Agent Studio این پیچیدگی را پشت یک API محلی کوچک و مستند پنهان می‌کند:
+این نقاط انتهایی مستند نیستند، برای هر تکمیل پاسخ (completion) به حل یک چالش اثبات کار (proof-of-work) نیاز دارند، قالب استریم اختصاصی دارند و زمینهٔ مکالمه را با شناسهٔ نشست و شناسهٔ پیام والد در سمت سرور نگه می‌دارند. DS FastAPI Wrapper این پیچیدگی را پشت یک API محلی کوچک و مستند پنهان می‌کند:
 
 - چالش اثبات کار را (با یک ماژول WebAssembly همراه پروژه) حل می‌کند؛
 - برای هر مکالمهٔ محلی یک نشست چت DeepSeek می‌سازد و آن را به خاطر می‌سپارد؛
@@ -355,7 +355,7 @@ python -c "from app.database import init_db; init_db()"
 
 | متغیر | نوع | پیش‌فرض | الزامی | توضیح |
 |---|---|---|---|---|
-| `APP_NAME` | رشته | `DS Agent Studio` | خیر | عنوان FastAPI و در پاسخ‌های `/` و `/health` استفاده می‌شود |
+| `APP_NAME` | رشته | `DS FastAPI Wrapper` | خیر | عنوان FastAPI و در پاسخ‌های `/` و `/health` استفاده می‌شود |
 | `DEBUG` | بولی (`true`/`false`، `1`/`0`) | `false` | خیر | فقط روی `run.py` اثر دارد: سطح لاگ Uvicorn را `debug` به‌جای `info` می‌کند. سطح لاگ خودِ برنامه را **تغییر نمی‌دهد** |
 | `HOST` | رشته | `127.0.0.1` | خیر | پیش‌فرض `run.py --host` (اگر مستقیماً `uvicorn` را اجرا کنید نادیده گرفته می‌شود) |
 | `PORT` | عدد صحیح | `8787` | خیر | پیش‌فرض `run.py --port` (اگر مستقیماً `uvicorn` را اجرا کنید نادیده گرفته می‌شود) |
@@ -392,7 +392,7 @@ python -c "from app.database import init_db; init_db()"
 هر متغیر زیر در `Settings` وجود دارد. فقط چهار مورد اول امروز اثر دارند؛ بقیه برای کامل بودن آمده‌اند.
 
 ```dotenv
-APP_NAME=DS Agent Studio
+APP_NAME=DS FastAPI Wrapper
 DEBUG=false
 HOST=127.0.0.1
 PORT=8787
@@ -432,7 +432,7 @@ uvicorn app.main:app --host 127.0.0.1 --port 8787
 
 ```bash
 curl http://127.0.0.1:8787/health
-# {"ok":true,"app":"DS Agent Studio","version":"0.2.0"}
+# {"ok":true,"app":"DS FastAPI Wrapper","version":"0.2.0"}
 ```
 
 مستندات تعاملی API: <http://127.0.0.1:8787/docs>.
@@ -479,14 +479,14 @@ python -m cli.chat_cli "Explain what a mutex is" [--base http://127.0.0.1:8787] 
 اطلاعات برنامه را برمی‌گرداند. احراز هویت: ندارد.
 
 ```json
-{"app": "DS Agent Studio", "version": "0.3.0", "docs": "/docs", "health": "/health"}
+{"app": "DS FastAPI Wrapper", "version": "0.3.0", "docs": "/docs", "health": "/health"}
 ```
 
 #### `GET /health`
 بررسی زنده بودن. احراز هویت: ندارد. وضعیت: `200`.
 
 ```json
-{"ok": true, "app": "DS Agent Studio", "version": "0.2.0"}
+{"ok": true, "app": "DS FastAPI Wrapper", "version": "0.2.0"}
 ```
 
 (رشتهٔ نسخه در این مسیر ثابت (hard-coded) است و با `/` تفاوت دارد — [مشکلات شناخته‌شده](#known-issues) را ببینید.)

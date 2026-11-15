@@ -1,6 +1,6 @@
 <div align="center">
 
-# DS Agent Studio
+# DS FastAPI Wrapper
 
 **A local FastAPI backend that exposes your DeepSeek web-chat session as a REST + Server-Sent-Events API, with persistent conversations stored in SQLite.**
 
@@ -43,11 +43,11 @@ English | [فارسی](README.fa.md)
 
 ### What it is
 
-DS Agent Studio is a Python service (FastAPI + SQLAlchemy + SQLite) that sits between your own tools and the **DeepSeek web chat** (`https://chat.deepseek.com`). It does not use DeepSeek's official paid API. Instead it talks to the same private HTTP endpoints the DeepSeek website uses, authenticated with a session token and cookies that **you** supply.
+DS FastAPI Wrapper is a Python service (FastAPI + SQLAlchemy + SQLite) that sits between your own tools and the **DeepSeek web chat** (`https://chat.deepseek.com`). It does not use DeepSeek's official paid API. Instead it talks to the same private HTTP endpoints the DeepSeek website uses, authenticated with a session token and cookies that **you** supply.
 
 ### Problems it solves
 
-The web endpoints are undocumented, require a proof-of-work challenge on every completion, return a custom streaming format, and keep conversation context on the server using session and parent-message identifiers. DS Agent Studio hides that complexity behind a small, documented local API:
+The web endpoints are undocumented, require a proof-of-work challenge on every completion, return a custom streaming format, and keep conversation context on the server using session and parent-message identifiers. DS FastAPI Wrapper hides that complexity behind a small, documented local API:
 
 - solves the proof-of-work challenge (via a bundled WebAssembly module);
 - creates and remembers a DeepSeek chat session per local conversation;
@@ -353,7 +353,7 @@ Settings are defined in `app/config.py` (`pydantic-settings`). Values come from 
 
 | Variable | Type | Default | Required | Description |
 |---|---|---|---|---|
-| `APP_NAME` | string | `DS Agent Studio` | No | Used as the FastAPI title and in `/` and `/health` responses |
+| `APP_NAME` | string | `DS FastAPI Wrapper` | No | Used as the FastAPI title and in `/` and `/health` responses |
 | `DEBUG` | bool (`true`/`false`, `1`/`0`) | `false` | No | Only affects `run.py`: Uvicorn log level `debug` instead of `info`. It does **not** change the application's own logging level |
 | `HOST` | string | `127.0.0.1` | No | Default for `run.py --host` (ignored when you start `uvicorn` directly) |
 | `PORT` | int | `8787` | No | Default for `run.py --port` (ignored when you start `uvicorn` directly) |
@@ -390,7 +390,7 @@ These are read with `os.getenv` by `cloudflare_server.py` from the **process env
 Every variable below exists in `Settings`. Only the first four have any effect today; the rest are shown for completeness.
 
 ```dotenv
-APP_NAME=DS Agent Studio
+APP_NAME=DS FastAPI Wrapper
 DEBUG=false
 HOST=127.0.0.1
 PORT=8787
@@ -430,7 +430,7 @@ Defaults: host `127.0.0.1`, port `8787`.
 
 ```bash
 curl http://127.0.0.1:8787/health
-# {"ok":true,"app":"DS Agent Studio","version":"0.2.0"}
+# {"ok":true,"app":"DS FastAPI Wrapper","version":"0.2.0"}
 ```
 
 Interactive API docs: <http://127.0.0.1:8787/docs>.
@@ -477,14 +477,14 @@ Error bodies from `HTTPException` have the shape `{"detail": "..."}`. Request-va
 Returns application info. Auth: none.
 
 ```json
-{"app": "DS Agent Studio", "version": "0.3.0", "docs": "/docs", "health": "/health"}
+{"app": "DS FastAPI Wrapper", "version": "0.3.0", "docs": "/docs", "health": "/health"}
 ```
 
 #### `GET /health`
 Liveness check. Auth: none. Status: `200`.
 
 ```json
-{"ok": true, "app": "DS Agent Studio", "version": "0.2.0"}
+{"ok": true, "app": "DS FastAPI Wrapper", "version": "0.2.0"}
 ```
 
 (The version string in this route is hard-coded and differs from `/` — see [known issues](#known-issues).)
