@@ -1,4 +1,3 @@
-"""CRUD مکالمه و پیام."""
 from __future__ import annotations
 
 from datetime import datetime

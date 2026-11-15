@@ -1,4 +1,3 @@
-"""مدیریت Secretها و جلوگیری از نشت توکن‌ها در لاگ/پاسخ."""
 import re
 from typing import Any
 

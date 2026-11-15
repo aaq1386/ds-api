@@ -1,4 +1,3 @@
-"""اجرای DS Agent Studio."""
 import argparse
 import uvicorn
 from app.config import settings

@@ -1,4 +1,3 @@
-"""مدیریت Authentication: بارگذاری/ذخیره کوکی، اجرای Cloudflare bypass."""
 import json
 import subprocess
 import sys

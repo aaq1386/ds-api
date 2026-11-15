@@ -296,15 +296,6 @@ class DeepSeekClient:
 
             buffer = ""
             
-            # حالت‌های اجرایی
-            # چون DeepSeek ممکن است فرگمنت اولیه را نفرستد،
-            # ما ابتدا همه چیز را جمع می‌کنیم، سپس در فرگمنت اولیه تصمیم می‌گیریم
-            # اما چون معمولاً فرگمنت اولیه قبل از appendها می‌آید،
-            # این استراتژی کار می‌کند:
-            # - وقتی THINK fragment دیدیم، in_thinking = True
-            # - وقتی RESPONSE fragment دیدیم، in_thinking = False, in_response = True
-            # - وقتی append خام دیدیم، بر اساس in_thinking تصمیم می‌گیریم
-            # - **کلید حل:** اگر در append خام، متن شامل نشانه‌های thinking بود (مثل "The user", "We need", "I need")، آن را به عنوان thinking در نظر می‌گیریم، در غیر این صورت text.
             
             in_thinking = False
             in_response = False
@@ -375,7 +366,6 @@ class DeepSeekClient:
                         else []
                     )
 
-                    # --- 1) فرگمنت اولیه ---
                     if "v" in data and isinstance(data["v"], dict) and "response" in data["v"]:
                         resp_obj = data["v"]["response"]
 
@@ -406,7 +396,6 @@ class DeepSeekClient:
                                     yield {"type": "text", "content": cleaned}
                         continue
 
-                    # --- تشخیص تغییر نوع Fragment ---
                     if p == "response/fragments" and isinstance(v, list):
                         for frag in v:
                             if not isinstance(frag, dict):
@@ -430,7 +419,6 @@ class DeepSeekClient:
 
                         continue
 
-                    # --- 2) response/content (مستقیم) ---
                     if p == "response/content":
                         if isinstance(v, str) and v:
                             cleaned = re.sub(r"\[citation:\s*\d+\]", "", v)
@@ -438,7 +426,6 @@ class DeepSeekClient:
                                 yield {"type": "text", "content": cleaned}
                         continue
 
-                    # --- 3) response/fragments/-1/content (append به آخرین فرگمنت) ---
                     if p == "response/fragments/-1/content":
                         if o in ("APPEND", "SET") and isinstance(v, str) and v:
                             cleaned = re.sub(r"\[citation:\s*\d+\]", "", v)
@@ -449,7 +436,6 @@ class DeepSeekClient:
                                     yield {"type": "text", "content": cleaned}
                         continue
 
-                    # --- 4) {"v": "..."} بدون p (append خام) ---
                     if "v" in data and "p" not in data:
                         if isinstance(v, str) and v:
                             cleaned = re.sub(r"\[citation:\s*\d+\]", "", v)
@@ -460,7 +446,6 @@ class DeepSeekClient:
                                     yield {"type": "text", "content": cleaned}
                         continue
 
-                    # --- 5) پایان ---
                     if p == "response/status" and v == "FINISHED":
                         yield {"type": "done"}
                         return

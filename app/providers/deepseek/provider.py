@@ -86,10 +86,6 @@ class DeepSeekProvider(LLMProvider):
                 content = ev.get("content", "")
                 if not content:
                     continue
-                # fragment = متن خام از DeepSeek
-                # اگر thinking=true و هنوز text ندیدیم، همه را thinking بگیر
-                # اگر thinking=false، همه را text بگیر
-                # (DeepSeek API این تفکیک را نمی‌دهد)
                 if thinking and not text_parts:
                     thinking_parts.append(content)
                     yield StreamEvent(type="thinking", content=content)

@@ -1,4 +1,3 @@
-"""لایه انتزاعی Provider — امکان تعویض DeepSeek با هر Provider دیگر."""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import AsyncIterator, Optional
